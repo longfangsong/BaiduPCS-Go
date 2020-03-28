@@ -18,6 +18,7 @@ import (
 	"github.com/iikira/BaiduPCS-Go/pcsutil/getip"
 	"github.com/iikira/BaiduPCS-Go/pcsutil/pcstime"
 	"github.com/iikira/BaiduPCS-Go/pcsverbose"
+	"github.com/iikira/BaiduPCS-Go/rpc"
 	"github.com/olekukonko/tablewriter"
 	"github.com/peterh/liner"
 	"github.com/urfave/cli"
@@ -94,7 +95,7 @@ func main() {
 	app := cli.NewApp()
 	app.Name = "BaiduPCS-Go"
 	app.Version = Version
-	app.Author = "iikira/BaiduPCS-Go: https://github.com/iikira/BaiduPCS-Go"
+	app.Author = "iikira/BaiduPCS-Go: lhttps://github.com/iikira/BaiduPCS-Go"
 	app.Copyright = "(c) 2016-2019 iikira."
 	app.Usage = "百度网盘客户端 for " + runtime.GOOS + "/" + runtime.GOARCH
 	app.Description = `BaiduPCS-Go 使用Go语言编写的百度网盘命令行客户端, 为操作百度网盘, 提供实用功能.
@@ -1153,8 +1154,8 @@ func main() {
 
 				subArgs := c.Args()
 				pcscommand.RunUpload(subArgs[:c.NArg()-1], subArgs[c.NArg()-1], &pcscommand.UploadOptions{
-					Parallel:       c.Int("p"),
-					MaxRetry:       c.Int("retry"),
+					Parallel:      c.Int("p"),
+					MaxRetry:      c.Int("retry"),
 					NoRapidUpload: c.Bool("norapid"),
 					NoSplitFile:   c.Bool("nosplit"),
 				})
@@ -2053,6 +2054,6 @@ func main() {
 
 	sort.Sort(cli.FlagsByName(app.Flags))
 	sort.Sort(cli.CommandsByName(app.Commands))
-
-	app.Run(os.Args)
+	server := rpc.NewServer(*app)
+	server.Listen(":9181")
 }
