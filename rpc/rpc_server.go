@@ -22,7 +22,7 @@ func NewServer(client cli.App) Server {
 	}
 }
 func (s *Server) Download(ctx context.Context, req *DownloadRequest) (*DownloadResponse, error) {
-	s.client.Run([]string{"BaiduPCS-Go", "download", "/lana/" + req.Filename, "--saveto", "/download", "--nocheck"})
+	s.client.Run([]string{"BaiduPCS-Go", "download", "/lana/" + req.Filename, "--saveto", "/download", "--nocheck", "-l", "3"})
 	file, _ := os.Open("/download/" + req.Filename)
 	defer file.Close()
 	content, _ := ioutil.ReadAll(file)
