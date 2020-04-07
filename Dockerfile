@@ -7,6 +7,5 @@ RUN go build
 FROM alpine
 COPY --from=builder /go/src/BaiduPCS-Go/BaiduPCS-Go /
 WORKDIR /
-RUN mkdir /upload
 ENTRYPOINT ["/BaiduPCS-Go"]
 EXPOSE 9181
