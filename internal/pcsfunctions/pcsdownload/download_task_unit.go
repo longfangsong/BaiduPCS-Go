@@ -286,7 +286,6 @@ func (dtu *DownloadTaskUnit) execPanDownload(dlink string, result *taskframework
 
 func (dtu *DownloadTaskUnit) locateDownload(result *taskframework.TaskUnitRunResult) (ok bool) {
 	rawDlinks, err := GetLocateDownloadLinks(dtu.PCS, dtu.PcsPath)
-	fmt.Println(rawDlinks)
 	if err != nil {
 		result.ResultMessage = StrDownloadGetDlinkFailed
 		result.Err = err
